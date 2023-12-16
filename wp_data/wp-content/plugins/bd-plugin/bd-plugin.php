@@ -81,3 +81,26 @@ function cosultar_registros()
 
     return $select_consulta;
 }
+
+// Función para reemplazar palabras soeces por sus equivalentes suaves en el contenido
+function cambiarpalabras($text)
+{
+    // Se obtienen los datos de la tabla
+    $datos = cosultar_registros();
+
+    // Se crean arrays para almacenar las palabras soeces y sus equivalentes suaves
+    $eufenismo = array();
+    $soeces = array();
+
+    // Se recorren los datos obtenidos para llenar los arrays
+    foreach ($datos as $fila) {
+        $eufenismo[] = $fila->tonterias;
+        $soeces[] = $fila->eufenismos;
+    }
+
+    // Se reemplazan las palabras soeces por sus equivalentes suaves en el texto
+    return str_replace($eufenismo, $soeces, $text);
+}
+
+// Hook para aplicar la función cambiarpalabras al contenido
+add_filter('the_content', 'cambiarpalabras');
