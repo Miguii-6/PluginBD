@@ -70,3 +70,14 @@ function insertarfilas()
 // Hook para ejecutar la función insertarfilas al cargar el plugin
 add_action('plugin_loaded', 'insertarfilas');
 
+// Función para consultar registros de la tabla
+function cosultar_registros()
+{
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'dam';
+
+    // Consulta para seleccionar todos los registros de la tabla
+    $select_consulta = $wpdb->get_results("SELECT * FROM $table_name");
+
+    return $select_consulta;
+}
